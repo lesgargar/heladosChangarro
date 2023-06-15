@@ -1,0 +1,28 @@
+.product{
+    padding: 0;
+
+    .card{
+        margin: 15px;
+        .card-title{
+            height: 50px;
+        }
+        .btn{
+            width: 100%;
+            background-color: transparent;
+            color: blueviolet;
+            border-color: pink;
+            border-radius:50px ;
+
+            &:hover,
+            &active,
+            &focus {
+                background-color: blueviolet !important;
+                border-color: pink;
+                color: aliceblue;
+                box-shadow: none !important;
+
+            }
+
+        }
+    }
+}
