@@ -8,14 +8,18 @@ import Cart from "../Cart/Cart";
 
 export default function TopMenu(props){
 
-    const {productsCart, getProductsCart} = props;
+    const {productsCart, getProductsCart, products} = props;
 
     return(
         <Navbar bg="dark" variant="dark" className="top-menu">
             <Container>
                 <BrandNav/>
                 {/* <MenuNav/> */}
-                <Cart productsCart={productsCart} getProductsCart={getProductsCart}/>
+                <Cart 
+                productsCart={productsCart} 
+                getProductsCart={getProductsCart}
+                products={products}
+                />
             </Container>
         </Navbar>
     )
