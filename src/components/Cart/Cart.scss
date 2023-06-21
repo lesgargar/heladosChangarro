@@ -64,7 +64,7 @@
 
     }
     .cart-content__products{
-        height: calc(100vh - 76px - 15px) ;
+        height: calc(100vh - 200px - 15px) ;
         overflow: scroll;
     }
     
@@ -113,5 +113,34 @@
             }
         }
     
+    }
+    .cart-content__footer{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #4f5256;
+        padding: 15px ;
+
+        >div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+
+            p{
+                &:last-of-type{
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+            }
+        }
+        button{
+            background-color: pink;
+            color: purple;
+            width: 100%;
+            border: 0;
+            font-size: 20px;
+        }
     }
 }

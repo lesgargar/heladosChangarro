@@ -11,15 +11,41 @@ import './Cart.scss';
 export default function Cart(props){
 
     const {productsCart, getProductsCart, products} = props
-
     const [cartOpen, setCartOpen] = useState(false);
     const widthCartContent = cartOpen ? 400 : 0;
-    
     const [sigleProductsCart, setSingleProductsCart] = useState([])
+    const [cartTotalPrice, setCartTotalPrice]= useState(0)
+    //carga los productos
     useEffect(()=>{
         const allProductsId = removeArrayDuplicates(productsCart)
         setSingleProductsCart(allProductsId)
     }, [productsCart])
+
+    //actualiza el total del carrito
+    useEffect(()=>{
+        const productData = []
+        let totalPrice = 0;
+        const allProductsId = removeArrayDuplicates(productsCart)
+        allProductsId.forEach(productId =>{
+            const qty = countDuplicatesItemArray(productId, productsCart);
+            const productValue ={
+                id: productId,
+                qty: qty
+            };
+            productData.push(productValue)
+        })
+        if (!products.loading && products.result){
+            products.result.forEach(product =>{
+                productData.forEach(item =>{
+                    if(product.id == item.id){
+                        const totalValue = product.price * item.qty;
+                        totalPrice = totalPrice + totalValue
+                    }
+                });
+            });
+        }
+        setCartTotalPrice(totalPrice)
+    },[productsCart, products])
 
     const openCart = () => {
         setCartOpen(true);
@@ -74,6 +100,7 @@ export default function Cart(props){
                 />
             ))}
             </div>
+            <CartContentFooter cartTotalPrice={cartTotalPrice}/>
         </div>
         </> 
     ); 
@@ -109,7 +136,6 @@ function CartContentProducts(props){
   
     if(!loading && result){
         return result.map((product, index)=>{
-            console.log("asdasdasd",product.id, idsProductsCart)
             if(idProductCart == product.id){
                 const qty = countDuplicatesItemArray(product.id, idsProductsCart);
                 return(
@@ -148,6 +174,20 @@ function RenderProduct(props){
                 </div>
             </div>
 
+        </div>
+    )
+}
+
+function CartContentFooter(props){
+    const {cartTotalPrice} = props
+
+    return(
+        <div className="cart-content__footer">
+            <div>
+                <p>Total: </p>
+                <p>{cartTotalPrice.toFixed(2)}</p>
+            </div>
+            <Button>Pedir</Button>
         </div>
     )
 }
